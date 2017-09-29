@@ -130,7 +130,7 @@ return b;
         }
         Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxy3.bdo.com.hk", 8080));  
         //connection = (HttpURLConnection) url.openConnection(proxy);
-        connection = (HttpURLConnection) url.openConnection(proxy);
+        connection = (HttpURLConnection) url.openConnection();
         // set the connection timeout
         connection.setConnectTimeout(20000);
         connection.setReadTimeout(20000);
@@ -295,10 +295,10 @@ return b;
     public static String getName(int id) throws Exception
     {
         if(id < 0) return "unknown"; 
-        String url = "http://space.bilibili.com/"+id;
+        String url = "http://member.bilibili.tv/space?uid="+id;
         String src = fetchString(url, "GET", "",true);
         //System.out.println(src);
-        String name = trimTail(trimHead(src, "<title>"),"的个人空间");
+        String name = trimTail(trimHead(src, "<div class=\"spname\">"),"</div>");
         System.out.println(""+id+" "+name);
         return name;
     }
